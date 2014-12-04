@@ -452,6 +452,14 @@ function($, _, moment) {
     }
   };
 
+  kbn.valueFormats["long"] = function(size, decimal, scaledDecimals) {
+    if (size === null) { return ""; }
+
+    var splitSize = kbn.toFixed(size, decimal).toString().split(".");
+    var decimals = splitSize.length === 2 ? "." + splitSize[1] : "";
+    return size.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1" + ",") + decimals;
+  };
+
   kbn.slugifyForUrl = function(str) {
     return str
       .toLowerCase()
